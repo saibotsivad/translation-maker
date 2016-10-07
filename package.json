@@ -1,6 +1,6 @@
 {
   "name": "translation-maker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Using a JSON definition file, easily create new translations.",
   "main": "dist/generate.es5.js",
   "scripts": {
