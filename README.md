@@ -22,14 +22,21 @@ Using it would be something like this:
 const renderer = require('mustache').render
 const translate = require('translation-maker')(renderer)
 
-const definition = require('./definition.json')
 const translation = require('./translation.en-US.json')
 
-const output = translate(definition, translation)
+const output = translate(translation)
 // output.someKey => 'a translated string'
 ```
 
 ## Overview
+
+There are three objects that you'll want: data, translation, and
+a definition.
+
+* `definition`: The thing that other people will use to create translations.
+* `translation`: One of these per language.
+* `data`: An *optional* object passed in to the translate function, which
+	may be used by the translated strings.
 
 An example definition might look like this:
 
@@ -64,10 +71,28 @@ An example translation for this definition might look like:
 }
 ```
 
+An example data object for those might be:
+
+```json
+{
+	"quantity": [ 42 ],
+	"greeting": "John Smith"
+}
+```
+
+And for this example, the output translation would look like:
+
+```json
+{
+	"quantity": "You have 42 items in your cart",
+	"greeting: "Welcome to the site, John Smith"
+}
+```
+
 ## Renderer
 
 You'll notice that the key values of the translation example above
-have template-like characters, e.g. `{{param.0}}`.
+have template-like symbols, e.g. `{{param.0}}`.
 
 When you create an instance of `translation-maker` you need to pass
 it a rendering function which takes as inputs the translation string
