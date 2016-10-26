@@ -65,7 +65,7 @@ An example translation for this definition might look like:
 {
 	"lang": "en-US",
 	"value": {
-		"quantity": "You have {{param.0}} item{{param.0 === 0 || param.0 > 2 ? 's' : ''}} in your cart",
+		"quantity": "You have {{param.0}} item{{param.0 === 1 ? '' : 's'}} in your cart",
 		"greeting": "Welcome to the site, {{param.0}}!"
 	}
 }
