@@ -85,7 +85,7 @@ And for this example, the output translation would look like:
 ```json
 {
 	"quantity": "You have 42 items in your cart",
-	"greeting: "Welcome to the site, John Smith"
+	"greeting": "Welcome to the site, John Smith"
 }
 ```
 
