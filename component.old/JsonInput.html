@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col-xs-12">
+		<h2>{{header}}</h2>
+		<p>View the raw JSON here. You can make changes in the Form tab
+			and come back here to see how the JSON changes.</p>
+		<pre>
+			<code>{{stringified}}</code>
+		</pre>
+	</div>
+</div>
+
+<script>
+	export default {
+		computed: {
+			stringified: json => JSON.stringify(json, undefined, 2)
+		}
+	}
+</script>

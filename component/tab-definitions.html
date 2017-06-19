@@ -1,0 +1,108 @@
+<ul class="nav nav-tabs">
+	<li
+	role="presentation"
+	class="{{active(tab, 'form')}}"
+	on:click="set({ tab: 'form' })"
+	>
+		<a href="#create-definition-form">Definition</a>
+	</li>
+	<li
+	role="presentation"
+	class="{{active(tab, 'json')}}"
+	on:click="set({ tab: 'json' })"
+	>
+		<a href="#create-definition-json">View/Edit JSON</a>
+	</li>
+</ul>
+
+{{#if tab === 'form'}}
+	{{#each Object.keys(definitions).sort() as key}}
+	<Definition
+	key="{{key}}"
+	definition="{{definitions[key]}}"
+	emitter="{{emitter}}"
+	on:updateKey="updateDefinitionKey(event)"
+	on:updateDefinition="updateSingleDefinition(event)"
+	></Definition>
+	{{/each}}
+	<div class="row">
+		<div class="form-group">
+			<div class="col-xs-3">
+				<input
+				type="text"
+				class="form-control"
+				id="definition-new"
+				placeholder="New definition key..."
+				ref:newDefinitionKey
+				/>
+			</div>
+			<div class="col-xs-2">
+				<button
+				class="btn btn-primary"
+				on:click="createNewDefinitionKey()"
+				>
+					Create New Key
+				</button>
+			</div>
+		</div>
+	</div>
+{{else}}
+	<JsonInput
+		json="{{definitions}}"
+		on:save="updateDefinitions(event)"></JsonInput>
+{{/if}}
+
+<script>
+	import Definition from './definition.html'
+	import JsonInput from './json-input.html'
+
+	export default {
+		data() {
+			return {
+				tab: 'form'
+			}
+		},
+		helpers: {
+			active: (actualTab, possibleTab) => {
+				return actualTab === possibleTab ? 'active' : ''
+			}
+		},
+		methods: {
+			updateDefinitionKey: function({ oldKey, newKey, target }) {
+				const definitions = this.get('definitions')
+				definitions[newKey] = definitions[oldKey]
+				delete definitions[oldKey]
+				this.fire('update', definitions)
+			},
+			updateSingleDefinition: function({ key, definition }) {
+				const definitions = this.get('definitions')
+				definitions[key] = definition
+				this.fire('update', definitions)
+			},
+			updateDefinitions: function(definitions) {
+				this.fire('update', definitions)
+			},
+			createNewDefinitionKey: function() {
+				const key = this.refs.newDefinitionKey.value
+				const definitions = this.get('definitions')
+				definitions[key] = {
+					description: '',
+					parameters: []
+				}
+				this.fire('update', definitions)
+				this.refs.newDefinitionKey.value = ''
+				this.refs.newDefinitionKey.focus()
+			}
+		},
+		components: {
+			Definition,
+			JsonInput
+		}
+	}
+</script>
+
+<style>
+	.nav-tabs {
+		margin-bottom: 20px;
+	}
+</style>

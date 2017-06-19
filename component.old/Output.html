@@ -1,0 +1,21 @@
+<form class="form-horizontal">
+	{{#each Object.keys(outputs) as output}}
+	<div class="form-group">
+		<label class="col-xs-3 control-label">{{output}}</label>
+		<div class="col-xs-9">
+			<input type="text" class="form-control" value="{{outputs[output]}}">
+		</div>
+	</div>
+	<hr>
+	{{/each}}
+</form>
+
+<script>
+	export default {
+		data() {
+			return {
+				outputs: {}
+			}
+		}
+	}
+</script>

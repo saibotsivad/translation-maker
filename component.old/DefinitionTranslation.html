@@ -1,0 +1,74 @@
+<div class="row">
+	<div class="col-xs-12">
+		<h2>View/Edit</h2>
+		<p>Edit properties here, or switch tabs to see the raw JSON.</p>
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label>Language</label>
+					<input type="text" class="form-control" bind:value="translation.lang">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Properties</h3>
+			</div>
+		</div>
+		{{#each fields as field}}
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label>Key</label>
+					<input type="text" class="form-control" bind:value="field.key">
+				</div>
+			</div>
+			<div class="col-xs-9">
+				<div class="form-group">
+					<label>Description</label>
+					<input type="text" class="form-control" bind:value="field.definition.description">
+				</div>
+				<div class="form-group">
+					<label>Translation</label>
+					<input type="text" class="form-control" bind:value="field.translation">
+					{{#if field.baseTranslation}}
+					<span class="help-block">Base translation: {{field.baseTranslation}}</span>
+					{{/if}}
+				</div>
+
+				{{#if field.definition.parameters}}
+				<h4>Parameters</h4>
+				<div class="row">
+					{{#each field.definition.parameters as param, index}}
+					<div class="col-xs-2">
+						<div class="form-group">
+							<label>Type</label>
+							<input type="text" class="form-control" bind:value="param.type">
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label>Description</label>
+							<input type="text" class="form-control" bind:value="param.description">
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label>Example</label>
+							<input type="text" class="form-control" bind:value="param.example" placeholder="Enter an example...">
+						</div>
+					</div>
+					{{/each}}
+				</div>
+				{{/if}}
+				<h4>Output:</h4>
+				<blockquote>
+					{{field.output}}
+				</blockquote>
+				<hr>
+			</div>
+		</div>
+		{{/each}}
+	</div>
+</div>

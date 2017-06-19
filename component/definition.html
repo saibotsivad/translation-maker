@@ -1,0 +1,156 @@
+<div class="row definition-key-description">
+	<div class="form-group">
+		<div class="col-xs-3">
+			<label
+			for="definition-{{key}}-key"
+			>
+				Definition Key
+			</label>
+			<input
+			type="text"
+			class="form-control"
+			id="definition-{{key}}-key"
+			value="{{key}}"
+			on:change="updateDefinitionKey(key, event)"
+			/>
+		</div>
+		<div class="col-xs-9">
+			<label
+			for="definition-{{key}}-description"
+			>
+				Definition Description
+			</label>
+			<input
+			type="text"
+			class="form-control"
+			id="definition-{{key}}-description"
+			value="{{definition.description}}"
+			on:change="updateDefinitionDescription(description, event)"
+			/>
+		</div>
+	</div>
+</div>
+
+<div class="row definition-parameters">
+	<div class="col-xs-offset-1 col-xs-11">
+		{{#if definition.parameters && definition.parameters.length}}
+		{{#each definition.parameters as parameter, index}}
+		<div class="row">
+			<div class="form-group">
+				<div class="col-xs-3">
+					<label
+					for="definition-{{key}}-parameter-{{index}}-type"
+					>
+						Parameter Type
+					</label>
+					<input
+					type="text"
+					class="form-control"
+					id="definition-{{key}}-parameter-{{index}}-type"
+					value="{{parameter.type}}"
+					on:change="updateParameterType(index, event)"
+					/>
+				</div>
+				<div class="col-xs-9">
+					<label
+					for="definition-{{key}}-parameter-{{index}}-description"
+					>
+						Parameter Description
+					</label>
+					<input
+					type="text"
+					class="form-control"
+					id="definition-{{key}}-parameter-{{index}}-description"
+					value="{{parameter.description}}"
+					on:change="updateParameterDescription(index, event)"
+					/>
+				</div>
+			</div>
+		</div>
+		{{/each}}
+		{{/if}}
+		<div class="row">
+			<div class="form-group">
+				<div class="col-xs-3">
+					<label
+					for="definition-{{key}}-parameter-new-type"
+					>
+						Parameter Type
+					</label>
+					<input
+					type="text"
+					class="form-control"
+					ref:newParameterType
+					id="definition-{{key}}-parameter-new-type"
+					on:change="updateParameterType(-1, event)"
+					/>
+				</div>
+				<div class="col-xs-9">
+					<label
+					for="definition-{{key}}-parameter-new-description"
+					>
+						Parameter Description
+					</label>
+					<input
+					type="text"
+					class="form-control"
+					id="definition-{{key}}-parameter-new-description"
+					on:change="updateParameterDescription(-1, event)"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	import yolo2 from '../yolo2'
+
+	export default {
+		methods: {
+			updateDefinitionKey: function(oldKey, event) {
+				this.fire('updateKey', { oldKey, newKey: event.target.value })
+				yolo2.emit('yolo2', 'whassuuuuuuuppppp')
+			},
+			updateDefinitionDescription: function(description, event) {
+				const definition = this.get('definition')
+				definition.description = event.target.value
+				this.fire('updateDefinition', { key: this.get('key'), definition })
+			},
+			updateParameterType: function(index, event) {
+				const definition = this.get('definition')
+				const value = event.target.value
+				if (index < 0) {
+					definition.parameters.push({ type: '', description: '' })
+					index = definition.parameters.length - 1
+					event.target.value = ''
+					setTimeout(() => {
+						this.refs.newParameterType.focus()
+					}, 20)
+				}
+				definition.parameters[index].type = value
+				this.fire('updateDefinition', { key: this.get('key'), definition })
+			},
+			updateParameterDescription: function(index, event) {
+				const definition = this.get('definition')
+				const value = event.target.value
+				if (index < 0) {
+					definition.parameters.push({ type: '', description: '' })
+					index = definition.parameters.length - 1
+					event.target.value = ''
+				}
+				definition.parameters[index].description = value
+				this.fire('updateDefinition', { key: this.get('key'), definition })
+			}
+		}
+	}
+</script>
+
+<style>
+	.definition-key-description {
+		margin-bottom: 15px;
+	}
+	.definition-parameters {
+		margin-bottom: 20px;
+	}
+</style>

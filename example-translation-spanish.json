@@ -1,0 +1,8 @@
+{
+	"lang": "es-MX",
+	"value": {
+		"quantity": "Tiene {{param.0}} artículo{{param.0 === 0 || param.0 > 2 ? 's' : ''}} en su carrito de compras.",
+		"greeting": "Bienvenido al sitio, {{param.0}}!",
+		"signIn": "Registrarse?"
+	}
+}

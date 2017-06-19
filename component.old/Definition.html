@@ -1,0 +1,53 @@
+<form class="form-horizontal">
+	{{#each Object.keys(definitions) as definition}}
+		<div class="form-group">
+			<label class="col-xs-3 control-label">Definition Key/Description</label>
+			<div class="col-xs-2">
+				<input type="text" class="form-control" value="{{definition}}">
+			</div>
+			<div class="col-xs-7">
+				<input type="text" class="form-control" value="{{definitions[definition].description}}">
+			</div>
+		</div>
+		{{#each definitions[definition].parameters as parameter}}
+		<div class="form-group">
+			<label class="col-xs-3 control-label">Parameter Type/Description</label>
+			<div class="col-xs-2">
+				<input type="text" class="form-control" value="{{parameter.type}}">
+			</div>
+			<div class="col-xs-7">
+				<input type="text" class="form-control" value="{{parameter.description}}">
+			</div>
+		</div>
+		{{/each}}
+		<hr>
+	{{/each}}
+</form>
+
+<script>
+	export default {
+		data() {
+			return {
+				definitions: {
+					quantity: {
+						description: 'Describes the quantity in human-readable terms',
+						parameters: [{
+							type: 'number',
+							description: 'Integer of the quantity'
+						},{
+							type: 'thing',
+							description: 'stuff'
+						}]
+					},
+					greeting: {
+						description: 'Greet the user to the website',
+						parameters: [{
+							type: 'string',
+							description: 'Name of the user'
+						}]
+					}
+				}
+			}
+		}
+	}
+</script>

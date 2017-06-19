@@ -1,0 +1,29 @@
+<ul class="nav nav-tabs">
+	<li role="presentation" class="active"><a href="#">Form</a></li>
+	<li role="presentation"><a href="#">Raw JSON</a></li>
+</ul>
+
+<div class="row">
+	<div class="col-xs-12">
+		// the form
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<JsonInput json='{{ json }}'></JsonInput>
+	</div>
+</div>
+
+<script>
+	import JsonInput from './JsonInput.html'
+
+	export default {
+		data () {
+			return {}
+		},
+		components: {
+			JsonInput
+		}
+	}
+</script>

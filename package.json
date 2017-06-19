@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "description": "Example website to show the translation-maker module.",
   "scripts": {
-    "build": "npm run build:css && npm run build:js",
-    "build:css": "mkdir -p build && lessc app.less build/app.css",
-    "build:js": "mkdir -p build && echo js"
+    "build": "npm run build:html && npm run build:js && npm run build:css",
+    "build:js": "browserify -t sveltify app.js -o build/app.js",
+    "build:html": "rm index.html && node build-html.js",
+    "build:css": "mkdir -p build && lessc app.less build/app.css"
   },
   "repository": {
     "type": "git",
@@ -20,9 +21,17 @@
   "homepage": "https://github.com/saibotsivad/translation-maker#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "create-redux-reducer-from-map": "^1.0.0",
+    "document-ready": "^1.0.3",
+    "eventemitter3": "^2.0.2",
     "less": "^2.7.1",
-    "mustache": "^2.2.1",
+    "mustache": "^2.3.0",
+    "sveltify": "^1.0.3",
     "translation-maker": "^1.0.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "browserify": "^13.3.0",
+    "marked": "^0.3.6",
+    "svelte": "^1.10.2"
+  }
 }

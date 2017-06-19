@@ -1,0 +1,22 @@
+{
+	"quantity": {
+		"description": "Describes the quantity in human-readable terms",
+		"parameters": [{
+			"type": "number",
+			"description": "Integer of the quantity"
+		},{
+			"type": "thing",
+			"description": "stuff"
+		}]
+	},
+	"greeting": {
+		"description": "Greet the user to the website",
+		"parameters": [{
+			"type": "string",
+			"description": "Name of the user"
+		}]
+	},
+	"signIn": {
+		"description": "Text used for sign-in button."
+	}
+}

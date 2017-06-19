@@ -1,0 +1,52 @@
+<div class="row">
+	<div class="col-xs-12">
+		<p>
+			View/edit the raw JSON here. Changes here will be reflected
+			in the form, and vice versa.
+		</p>
+		<code>
+			<div class="{{error ? 'has-error' : ''}} {{saved ? 'has-success' : ''}}">
+				<textarea
+				class="form-control"
+				rows="6"
+				bind:value="stringified"
+				></textarea>
+			</div>
+		</code>
+		{{#if error}}
+			<div class="alert alert-danger" role="alert">
+				{{error}}
+			</div>
+		{{/if}}
+		<p class="text-right">
+			<button
+			class="btn btn-primary"
+			on:click="saveChanges(stringified)"
+			>
+				Save Changes
+			</button>
+		</p>
+	</div>
+</div>
+
+<script>
+	import yolo2 from '../yolo2'
+
+	export default {
+		computed: {
+			stringified: json => JSON.stringify(json, undefined, 2)
+		},
+		methods: {
+			saveChanges: function(json) {
+				try {
+					const obj = JSON.parse(json)
+					this.fire('save', obj)
+					this.set({ error: false, saved: true })
+					yolo2.emit('yolo2', 'jsonnnnnn')
+				} catch (e) {
+					this.set({ error: 'Invalid JSON!' })
+				}
+			}
+		}
+	}
+</script>

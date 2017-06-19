@@ -1,0 +1,37 @@
+<form class="form-horizontal">
+	<div class="form-group">
+		<label class="col-xs-3 control-label">Language</label>
+		<div class="col-xs-3">
+			<input type="text" class="form-control" value="{{translations.lang}}">
+		</div>
+	</div>
+	<hr>
+	{{#each Object.keys(translations.value) as translation}}
+	<div class="form-group">
+		<label class="col-xs-3 control-label">Translation Key/Value</label>
+		<div class="col-xs-2">
+			<input type="text" class="form-control" value="{{translation}}">
+		</div>
+		<div class="col-xs-7">
+			<input type="text" class="form-control" value="{{translations.value[translation]}}">
+		</div>
+	</div>
+	<hr>
+	{{/each}}
+</form>
+
+<script>
+	export default {
+		data() {
+			return {
+				translations: {
+					lang: 'en-US',
+					value: {
+						quantity: "You have {{param.0}} item{{param.0 === 0 || param.0 > 2 ? 's' : ''}} in your cart",
+						greeting: "Welcome to the site, {{param.0}}!"
+					}
+				}
+			}
+		}
+	}
+</script>

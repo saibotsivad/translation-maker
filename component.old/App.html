@@ -1,0 +1,51 @@
+<ul class="nav nav-tabs">
+	<li id="tab-form" role="presentation" class="{{active(tab, 'form')}}" on:click="set({ tab: 'form' })"><a href="#tab-form">Form</a></li>
+	<li id="tab-definition" role="presentation" class="{{active(tab, 'definition')}}" on:click="set({ tab: 'definition' })"><a href="#tab-definition">Definition</a></li>
+	<li id="tab-translation" role="presentation" class="{{active(tab, 'translation')}}" on:click="set({ tab: 'translation' })"><a href="#tab-translation">Translation</a></li>
+	<li id="tab-base-translation" role="presentation" class="{{active(tab, 'baseTranslation')}}" on:click="set({ tab: 'baseTranslation' })"><a href="#tab-base-translation">Base Translation</a></li>
+	<li id="tab-parameters" role="presentation" class="{{active(tab, 'parameters')}}" on:click="set({ tab: 'parameters' })"><a href="#tab-parameters">Parameters</a></li>
+</ul>
+
+{{#if tab === 'form'}}
+	<DefinitionTranslation
+		bind:fields
+		bind:translation></DefinitionTranslation>
+{{elseif tab === 'definition'}}
+	<JsonInput
+		header="Definition Object"
+		bind:json="definition"></JsonInput>
+{{elseif tab === 'translation'}}
+	<JsonInput
+		header="Translation Object"
+		bind:json="translation"></JsonInput>
+{{elseif tab === 'baseTranslation'}}
+	<JsonInput
+		header="Base Translation Object"
+		bind:json="baseTranslation"></JsonInput>
+{{elseif tab === 'parameters'}}
+	<JsonInput
+		header="Parameters Object"
+		bind:json="parameters"></JsonInput>
+{{/if}}
+
+<script>
+	import DefinitionTranslation from './DefinitionTranslation.html'
+	import JsonInput from './JsonInput.html'
+
+	export default {
+		data() {
+			return {
+				tab: 'form'
+			}
+		},
+		helpers: {
+			active: (actualTab, possibleTab) => {
+				return actualTab === possibleTab ? 'active' : ''
+			}
+		},
+		components: {
+			DefinitionTranslation,
+			JsonInput
+		}
+	}
+</script>

@@ -1,0 +1,27 @@
+<form class="form-horizontal">
+	{{#each Object.keys(data) as datum}}
+	<div class="form-group">
+		<label class="col-xs-3 control-label">Data Key/Value</label>
+		<div class="col-xs-2">
+			<input type="text" class="form-control" value="{{datum}}">
+		</div>
+		<div class="col-xs-7">
+			<input type="text" class="form-control" value="{{data[datum]}}">
+		</div>
+	</div>
+	<hr>
+	{{/each}}
+</form>
+
+<script>
+	export default {
+		data() {
+			return {
+				data: {
+					quantity: 42,
+					greeting: 'John Smith'
+				}
+			}
+		}
+	}
+</script>

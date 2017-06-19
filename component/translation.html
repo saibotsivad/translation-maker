@@ -1,0 +1,108 @@
+<div class="row translation-{{key}}-description">
+	<div class="col-xs-12">
+		<p class="lead">
+			<code>{{key}}</code>:
+			{{definition.description}}
+		</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label
+				for="translation-{{key}}-translation-text"
+				class="col-xs-2 control-label"
+				>
+					<code>{{translationLanguage}}</code>
+				</label>
+				<div class="col-xs-10">
+					<input
+					type="text"
+					class="form-control"
+					id="translation-{{key}}-translation-text"
+					value="{{translation || ''}}"
+					on:change="updateTranslation(key, event)"
+					/>
+					<span class="help-block">
+						{{renderedTranslation}}
+					</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label
+				for="translation-{{key}}-reference-text"
+				class="col-xs-2 control-label"
+				>
+					<code>{{referenceLanguage}}</code>
+				</label>
+				<div class="col-xs-10">
+					<input
+					type="text"
+					class="form-control"
+					id="translation-{{key}}-reference-text"
+					value="{{reference || ''}}"
+					on:change="updateReference(key, event)"
+					/>
+					<span class="help-block">
+						{{renderedReference}}
+					</span>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+{{#if definition.parameters && definition.parameters.length > 0}}
+<div class="row">
+	<div class="col-xs-offset-1 col-xs-11">
+		<p><strong>Change parameters to change the example translation output:</strong></p>
+		<form class="form-horizontal">
+			{{#each definition.parameters as parameter, index}}
+			<div class="form-group">
+				<label
+				for="translation-{{key}}-parameter-{{index}}"
+				class="col-xs-2 control-label"
+				>
+					<code>{{parameter.type}}</code>
+				</label>
+				<div class="col-xs-10">
+					<input
+					type="text"
+					class="form-control"
+					id="translation-{{key}}-parameter-{{index}}"
+					value="{{exampleParameter && exampleParameter[index] || ''}}"
+					/>
+					<span class="help-block">
+						{{parameter.description || ''}}
+					</span>
+				</div>
+			</div>
+			{{/each}}
+		</form>
+	</div>
+</div>
+{{/if}}
+
+<script>
+	export default {
+		methods: {
+			updateTranslation: function(key, event) {
+				console.log('translation key', key)
+				console.log('translation event', event)
+			},
+			updateReference: function(key, event) {
+				console.log('reference key', key)
+				console.log('reference event', event)
+			}
+		}
+	}
+</script>
+
+<style>
+.help-block {
+	margin-bottom: 0;
+	margin-left: 12px;
+}
+</style>

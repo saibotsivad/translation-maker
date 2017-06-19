@@ -1,0 +1,132 @@
+<ul class="nav nav-tabs">
+	<li
+	role="presentation"
+	class="{{active(tab, 'form')}}"
+	on:click="set({ tab: 'form' })"
+	>
+		<a href="#create-translation-form">Translation</a>
+	</li>
+	<li
+	role="presentation"
+	class="{{active(tab, 'json')}}"
+	on:click="set({ tab: 'json' })"
+	>
+		<a href="#create-translation-json">View/Edit Translation JSON</a>
+	</li>
+	<li
+	role="presentation"
+	class="{{active(tab, 'reference')}}"
+	on:click="set({ tab: 'reference' })"
+	>
+		<a href="#create-translation-reference">View/Edit Reference JSON</a>
+	</li>
+</ul>
+
+{{#if tab === 'form'}}
+	<div class="row">
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label
+				for="translation-lang"
+				>
+					Translation Language
+				</label>
+			</div>
+			<div class="col-xs-3">
+				<input
+				type="text"
+				class="form-control"
+				id="translation-key"
+				value="{{translation.lang}}"
+				on:change="updateTranslationLanguage(event)"
+				/>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label
+				for="reference-lang"
+				>
+					Reference Language
+				</label>
+			</div>
+			<div class="col-xs-3">
+				<input
+				type="text"
+				class="form-control"
+				id="translation-key"
+				value="{{reference.lang}}"
+				on:change="updateReferenceLanguage(event)"
+				/>
+			</div>
+		</div>
+	</div>
+
+	{{#each Object.keys(definitions).sort() as key}}
+		<Translation
+		key="{{key}}"
+		definition="{{definitions[key]}}"
+		translationLanguage="{{translation.lang}}"
+		referenceLanguage="{{reference.lang}}"
+		translation="{{translation.value[key]}}"
+		reference="{{reference.value[key]}}"
+		exampleParameter="{{exampleParameters[key]}}"
+		renderedTranslation={{renderedTranslation[key]}}
+		renderedReference="{{renderedReference[key]}}"
+		></Translation>
+	{{/each}}
+{{elseif tab === 'json'}}
+	<JsonInput
+		json="{{translation}}"
+		on:save="updateTranslation(event)"></JsonInput>
+{{elseif tab === 'reference'}}
+	<JsonInput
+		json="{{reference}}"
+		on:save="updateReference(event)"></JsonInput>
+{{/if}}
+
+<script>
+	import JsonInput from './json-input.html'
+	import Translation from './translation.html'
+
+	export default {
+		data() {
+			return {
+				tab: 'form'
+			}
+		},
+		helpers: {
+			active: (actualTab, possibleTab) => {
+				return actualTab === possibleTab ? 'active' : ''
+			}
+		},
+		methods: {
+			updateTranslationLanguage: (language) => {
+				console.log('translation language', language)
+			},
+			updateReferenceLanguage: (language) => {
+				console.log('reference language', language)
+			},
+			updateTranslation: function(translation) {
+				console.log('translation', translation)
+				this.fire('update', { translation })
+			},
+			updateReference: function(reference) {
+				console.log('reference', reference)
+				this.fire('update', { reference })
+			}
+		},
+		components: {
+			JsonInput,
+			Translation
+		}
+	}
+</script>
+
+<style>
+	.nav-tabs {
+		margin-bottom: 20px;
+	}
+</style>

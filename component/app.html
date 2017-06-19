@@ -1,0 +1,49 @@
+<h1>Create a Translation</h1>
+
+<h2>1: Create a Definition</h2>
+
+<TabDefinitions
+	emitter="{{emitter}}"
+	definitions="{{definitions}}"
+	on:update="updateDefinitions(event)"
+	></TabDefinitions>
+
+<h2>2: Create a Translation</h2>
+
+<TabTranslations
+	definitions="{{definitions}}"
+	translation="{{translation}}"
+	reference="{{reference}}"
+	exampleParameters="{{exampleParameters}}"
+	renderedTranslation="{{renderedTranslation}}"
+	renderedReference="{{renderedReference}}"
+	on:update="updateTranslation(event)"
+	></TabTranslations>
+
+<script>
+	import TabDefinitions from './tab-definitions.html'
+	import TabTranslations from './tab-translations.html'
+
+	export default {
+		components: {
+			TabDefinitions,
+			TabTranslations
+		},
+		methods: {
+			updateDefinitions: function(definitions) {
+				console.log('wheeeee!!!', definitions)
+				this.set({ definitions })
+			},
+			updateTranslation: function({ translation, reference }) {
+				console.log('updateTranslation translation', translation)
+				console.log('updateTranslation reference', reference)
+				if (translation) {
+					this.set({ translation })
+				}
+				if (reference) {
+					this.set({ reference })
+				}
+			}
+		}
+	}
+</script>
