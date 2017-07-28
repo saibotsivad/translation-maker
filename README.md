@@ -1,5 +1,7 @@
 # translation-maker
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/saibotsivad/translation-maker.svg)](https://greenkeeper.io/)
+
 Using a JSON definition file, easily create new translations.
 
 The definition file describes all properties which need to
